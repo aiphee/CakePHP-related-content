@@ -1,4 +1,4 @@
-# SimilarContent plugin for CakePHP
+# SimilarContent plugin for CakePHP 3
 
 ![alt text](/related1.png "Logo Title Text 1")
 ![alt text](/related2.png "Logo Title Text 1")
@@ -15,7 +15,6 @@ Please, be noted that this is not a complex plugin, there may be serious bugs, y
 ## Installation 
 
  - Run migration from plugin or create table manually.
-
 ```SQL
 CREATE TABLE `related_contents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -34,4 +33,18 @@ CREATE TABLE `related_contents` (
 ```PHP
 Plugin::load('SimilarContent', ['routes' => true]);
 ```
+
+## Usage
+ - add behavior to your table to be able to search or be found
+```PHP
+$this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? $config['options'] : []);
+```
+	If you dont want table in index, use this ase seconc parameter:
+```isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]```
+ - Add element to your view
+```PHP
+<?= $this->element('SimilarContent.managingRelated', ['tables_to_get' => ['ContentNews', 'ContentPages']]) ?>
+```
+	Parameter `tables_to_get` is optional, it will allow to search just in some tables.
+
 
