@@ -33,18 +33,34 @@ CREATE TABLE `related_contents` (
 ```PHP
 Plugin::load('SimilarContent', ['routes' => true]);
 ```
+ - Add tou cakephp composer.json
+```Composer
+    "autoload": {
+        "psr-4": {
+            "App\\": "src",
+            "SimilarContent\\": "./plugins/SimilarContent/src",
+        }
+    }
+```
 
 ## Usage
  - add behavior to your table to be able to search or be found
 ```PHP
 $this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? $config['options'] : []);
 ```
-	If you dont want table in index, use this ase seconc parameter:
+	If you dont want table in index, use this as a second parameter:
 ```isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]```
  - Add element to your view
 ```PHP
 <?= $this->element('SimilarContent.managingRelated', ['tables_to_get' => ['ContentNews', 'ContentPages']]) ?>
 ```
 	Parameter `tables_to_get` is optional, it will allow to search just in some tables.
+
+ - To get related content with your entry, you have to pass parameter to find
+```PHP
+$entity = $this->ContentPages->get($id, [
+				'getRelated' => true
+			]);
+```
 
 
