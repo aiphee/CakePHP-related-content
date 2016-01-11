@@ -33,7 +33,7 @@ CREATE TABLE `related_contents` (
 ```PHP
 Plugin::load('SimilarContent', ['routes' => true]);
 ```
- - Add tou cakephp composer.json
+ - Add to your cakephp composer.json
 ```Composer
     "autoload": {
         "psr-4": {
@@ -48,13 +48,13 @@ Plugin::load('SimilarContent', ['routes' => true]);
 ```PHP
 $this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? $config['options'] : []);
 ```
-	If you dont want table in index, use this as a second parameter:
+If you dont want table in index, use this as a second parameter:
 ```isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]```
  - Add element to your view
 ```PHP
 <?= $this->element('SimilarContent.managingRelated', ['tables_to_get' => ['ContentNews', 'ContentPages']]) ?>
 ```
-	Parameter `tables_to_get` is optional, it will allow to search just in some tables.
+Parameter `tables_to_get` is optional, it will allow to search just in some tables.
 
  - To get related content with your entry, you have to pass parameter to find
 ```PHP
