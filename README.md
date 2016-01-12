@@ -49,6 +49,7 @@ Plugin::load('SimilarContent', ['routes' => true]);
 $this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? $config['options'] : []);
 ```
 If you dont want table in index, use this as a second parameter:
+
 ```isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]```
  - Add element to your view
 ```PHP
