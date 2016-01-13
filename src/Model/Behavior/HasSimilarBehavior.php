@@ -14,14 +14,27 @@
 	use Cake\ORM\TableRegistry;
 	use Cake\Utility\Inflector;
 
+	/**
+	 * Class HasSimilarBehavior
+	 * @package SimilarContent\Model\Behavior
+	 *
+	 *
+	 * Inicializace:
+	 * 		$this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? $config['options'] : []);
+	 * Inicializace tabulky na kterou ostatní nemůžou odkazovat:
+	 *		$this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]);
+	 *
+	 * Search options:
+	 * 		getRelated 		- if present, get related in search, otherwise it wont fetch
+	 *
+	 * Init options:
+	 * 		in_index 		- if set to false, table can search in index, but wont be in it
+	 * 		active_field 	- name of field which says if item is active, if present only those with active set as true will be in index
+	 *
+	 */
 	class HasSimilarBehavior extends Behavior {
 		/**
 		 * Vrátí pole s názvy tabulek které mají připnuté chování, po přidání chování je třeba mazat cache
-		 *
-		 * Inicializace:
-		 * 		$this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? $config['options'] : []);
-		 * Inicializace tabulky na kterou ostatní nemůžou odkazovat:
-		 *		$this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]);
 		 *
 		 * @param bool $thisTable
 		 *
@@ -186,7 +199,7 @@
 			if (($indexedTables = Cache::read('Similar.indexedTables')) === false) { //Nepodařilo se načíst z cache
 				self::refreshCache();
 			} else { //Načteno z cache
-				$indexedTables[$modelName] = $this->_table->find('list')->toArray();
+				$indexedTables[$modelName] = $this->_table->find('list', ['only_active' => true])->toArray();
 				Cache::write('Similar.indexedTables', $indexedTables);
 			}
 			return true;
@@ -206,7 +219,7 @@
 
 			/** @var Table $table */
 			foreach ($tablesWithBehavior as $table) {
-				$indexed_tables[$table->alias()] = $table->find('list')->toArray();
+				$indexed_tables[$table->alias()] = $table->find('list', ['only_active' => true])->toArray();
 			}
 
 			return $indexed_tables;
