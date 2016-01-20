@@ -25,11 +25,12 @@
 	 *		$this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]);
 	 *
 	 * Search options:
-	 * 		getRelated 		- if present, get related in search, otherwise it wont fetch
+	 * 		getRelated 				- if present, get related in search, otherwise it wont fetch
 	 *
 	 * Init options:
-	 * 		in_index 		- if set to false, table can search in index, but wont be in it
-	 * 		active_field 	- name of field which says if item is active, if present only those with active set as true will be in index
+	 * 		in_index 				- if set to false, table can search in index, but wont be in it
+	 * 		skipSimilarInitialize 	- if set to true, it only is in index
+	 * 		active_field 			- name of field which says if item is active, if present only those with active set as true will be in index
 	 *
 	 */
 	class HasSimilarBehavior extends Behavior {
@@ -125,39 +126,41 @@
 		}
 
 		public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
-			if (count($data) > 5) {
-				foreach ($data as $key => &$item) {
-					if (is_array($item) && preg_match('/related-.*/', $key)) {
-						foreach ($item as &$related) {
-							$related['_joinData']['created'] = Time::now();
+			if (!$this->config('skipSimilarInitialize')) {
+				if (count($data) > 5) {
+					foreach ($data as $key => &$item) {
+						if (is_array($item) && preg_match('/related-.*/', $key)) {
+							foreach ($item as &$related) {
+								$related['_joinData']['created'] = Time::now();
+							}
 						}
 					}
+
+	//				unset($data['related']);
+
+					echo ""; //TODO $article->dirty('comments', true); aby se neaktlizovalo id?
 				}
 
-//				unset($data['related']);
-
-				echo ""; //TODO $article->dirty('comments', true); aby se neaktlizovalo id?
-			}
-
-			/*if (isset($data['related']) > 0) {
-				$relatedContentsTable = TableRegistry::get('RelatedContents');
-				foreach ($data['related'] as $id => &$related) {
-					$related['source_table_name'] = $this->_table->table();
-					$related['created']           = Time::now();
-				}
-				$entities = $relatedContentsTable->newEntities($data['related']);
-
-				$relatedContentsTable->connection()->transactional(function () use ($relatedContentsTable, $entities, $data) {
-					$relatedContentsTable->deleteAll([
-						'source_table_name' => $this->_table->table(),
-						'source_table_id'   => reset($data['related'])['source_table_id'],
-					]);
-					foreach ($entities as $entity) {
-						$relatedContentsTable->save($entity, ['atomic' => false]);
+				/*if (isset($data['related']) > 0) {
+					$relatedContentsTable = TableRegistry::get('RelatedContents');
+					foreach ($data['related'] as $id => &$related) {
+						$related['source_table_name'] = $this->_table->table();
+						$related['created']           = Time::now();
 					}
-				});
+					$entities = $relatedContentsTable->newEntities($data['related']);
 
-			}*/
+					$relatedContentsTable->connection()->transactional(function () use ($relatedContentsTable, $entities, $data) {
+						$relatedContentsTable->deleteAll([
+							'source_table_name' => $this->_table->table(),
+							'source_table_id'   => reset($data['related'])['source_table_id'],
+						]);
+						foreach ($entities as $entity) {
+							$relatedContentsTable->save($entity, ['atomic' => false]);
+						}
+					});
+
+				}*/
+			}
 		}
 
 		public function beforeSave($event, $entity, $options) {

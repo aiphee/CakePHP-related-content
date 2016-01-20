@@ -8,7 +8,7 @@
 	<?php if (!isset($show_legend) || $show_legend): ?>
 		<legend><?= isset($custom_title) ? $custom_title : __('Managing related') ?></legend>
 	<?php endif ?>
-	<?= $this->Form->input('foreign_table_search', ['label' => false, 'placeholder' => __('Start typing to add similar')]) ?>
+	<?= $this->Form->input('foreign_table_search', ['label' => false, 'placeholder' => __('Start typing to add related')]) ?>
 
 	<div class="row last" id="related">
 		<?php if (count($entity->related)) foreach ($entity->related as $key => $related) {
