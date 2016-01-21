@@ -5,6 +5,7 @@
 	use Cake\Network\Exception\BadRequestException;
 	use Cake\Utility\Inflector;
 	use RelatedContent\Model\Behavior\HasRelatedBehavior;
+	use RelatedContent\Model\Behavior\InRelatedIndexBehavior;
 
 	/**
 	 * Polls Controller
@@ -57,7 +58,7 @@
 		 */
 		private function __getIndexedTables() {
 			if (($indexed_tables = Cache::read('Related.indexedTables')) === false) {
-				HasRelatedBehavior::refreshCache();
+				InRelatedIndexBehavior::refreshCache();
 				$indexed_tables = Cache::read('Related.indexedTables');
 			}
 
