@@ -1,5 +1,5 @@
 {
-    "name": "aiphee/RelatedContent",
+    "name": "aiphee/related-content",
     "description": "RelatedContent plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {

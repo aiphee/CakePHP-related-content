@@ -1,4 +1,4 @@
-# RelatedContent plugin for CakePHP 3
+# Related content plugin for CakePHP 3
 
 ![alt text](/related1.png "Logo Title Text 1")
 ![alt text](/related2.png "Logo Title Text 1")
