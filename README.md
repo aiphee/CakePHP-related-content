@@ -26,14 +26,7 @@ CREATE TABLE `related_contents` (
   PRIMARY KEY (`id`)
 )
 ```
-
- - Copy to plugins directory
-
- - Add to your `bootstrap.php`
-```PHP
-Plugin::load('RelatedContent', ['routes' => true]);
-```
- - Add to your cakephp composer.json
+ - Copy repo content to plugins directory and add to your cakephp composer.json
 ```Composer
     "autoload": {
         "psr-4": {
@@ -41,6 +34,12 @@ Plugin::load('RelatedContent', ['routes' => true]);
             "RelatedContent\\": "./plugins/RelatedContent/src",
         }
     }
+```
+or use packagist `composer require aiphee/related-content`
+
+ - Add to your `bootstrap.php`
+```PHP
+Plugin::load('RelatedContent', ['routes' => true]);
 ```
 
 ## Usage
