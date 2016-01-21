@@ -44,13 +44,15 @@ Plugin::load('RelatedContent', ['routes' => true]);
 ```
 
 ## Usage
- - add behavior to your table to be able to search or be found
+ - add first behavior to your table for it to be searchable (added to cache for search)
+```PHP
+$this->addBehavior('RelatedContent.InRelatedIndex');
+```
+ - add second behavior which will have Similar
 ```PHP
 $this->addBehavior('RelatedContent.HasRelated', isset($config['options']) ? $config['options'] : []);
 ```
-If you dont want table in index, use this as a second parameter:
 
-```isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]```
  - Add element to your view
 ```PHP
 <?= $this->element('RelatedContent.managingRelated', ['tables_to_get' => ['ContentNews', 'ContentPages']]) ?>
