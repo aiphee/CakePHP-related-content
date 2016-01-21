@@ -1,4 +1,4 @@
-# SimilarContent plugin for CakePHP 3
+# RelatedContent plugin for CakePHP 3
 
 ![alt text](/related1.png "Logo Title Text 1")
 ![alt text](/related2.png "Logo Title Text 1")
@@ -12,7 +12,7 @@ It also has basic element with ajax which relies on `Bootstrap 3`.
 
 Please, be noted that this is not a complex plugin, there may be serious bugs, you are welcome to report or repair them.
 
-## Installation 
+## Installation
 
  - Run migration from plugin or create table manually.
 ```SQL
@@ -28,17 +28,17 @@ CREATE TABLE `related_contents` (
 ```
 
  - Copy to plugins directory
- 
+
  - Add to your `bootstrap.php`
 ```PHP
-Plugin::load('SimilarContent', ['routes' => true]);
+Plugin::load('RelatedContent', ['routes' => true]);
 ```
  - Add to your cakephp composer.json
 ```Composer
     "autoload": {
         "psr-4": {
             "App\\": "src",
-            "SimilarContent\\": "./plugins/SimilarContent/src",
+            "RelatedContent\\": "./plugins/RelatedContent/src",
         }
     }
 ```
@@ -46,14 +46,14 @@ Plugin::load('SimilarContent', ['routes' => true]);
 ## Usage
  - add behavior to your table to be able to search or be found
 ```PHP
-$this->addBehavior('SimilarContent.HasSimilar', isset($config['options']) ? $config['options'] : []);
+$this->addBehavior('RelatedContent.HasRelated', isset($config['options']) ? $config['options'] : []);
 ```
 If you dont want table in index, use this as a second parameter:
 
 ```isset($config['options']) ? array_merge($config['options'], ['in_index' => false]) : ['in_index' => false]```
  - Add element to your view
 ```PHP
-<?= $this->element('SimilarContent.managingRelated', ['tables_to_get' => ['ContentNews', 'ContentPages']]) ?>
+<?= $this->element('RelatedContent.managingRelated', ['tables_to_get' => ['ContentNews', 'ContentPages']]) ?>
 ```
 Parameter `tables_to_get` is optional, it will allow to search just in some tables.
 

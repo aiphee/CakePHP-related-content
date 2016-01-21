@@ -1,17 +1,17 @@
 <?php
-	namespace SimilarContent\Controller;
+	namespace RelatedContent\Controller;
 
 	use Cake\Cache\Cache;
 	use Cake\Network\Exception\BadRequestException;
 	use Cake\Utility\Inflector;
-	use SimilarContent\Model\Behavior\HasSimilarBehavior;
+	use RelatedContent\Model\Behavior\HasRelatedBehavior;
 
 	/**
 	 * Polls Controller
 	 *
 	 * @property \App\Model\Table\PollsTable $Polls
 	 */
-	class SimilarContentController extends AppController {
+	class RelatedContentController extends AppController {
 
 		/**
 		 * Vrátí názvy odpovídající požadavku (včetně vynechaných znaků)
@@ -56,9 +56,9 @@
 		 * @return mixed
 		 */
 		private function __getIndexedTables() {
-			if (($indexed_tables = Cache::read('Similar.indexedTables')) === false) {
-				HasSimilarBehavior::refreshCache();
-				$indexed_tables = Cache::read('Similar.indexedTables');
+			if (($indexed_tables = Cache::read('Related.indexedTables')) === false) {
+				HasRelatedBehavior::refreshCache();
+				$indexed_tables = Cache::read('Related.indexedTables');
 			}
 
 			return $indexed_tables;

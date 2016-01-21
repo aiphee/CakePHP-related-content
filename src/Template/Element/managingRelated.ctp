@@ -36,4 +36,4 @@
 </fieldset>
 <script>
 </script>
-<?= $this->Html->script('SimilarContent.managing-related-compiled') ?>
+<?= $this->Html->script('RelatedContent.managing-related-compiled') ?>

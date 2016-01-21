@@ -1,6 +1,6 @@
 <?php
 
-namespace SimilarContent\Controller;
+namespace RelatedContent\Controller;
 
 use App\Controller\AppController as BaseController;
 

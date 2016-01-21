@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
 	});
 	$("#foreign-table-search").autocomplete({
 		minLength: 3,
-		source: '/SimilarContent/similar_content/search/' + tables_to_get,
+		source: '/RelatedContent/related_content/search/' + tables_to_get,
 		select: function select(event, ui) {
 			var target_id = ui.item.key;
 			var text = ui.item.value;
