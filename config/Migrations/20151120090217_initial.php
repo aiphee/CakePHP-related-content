@@ -1,14 +1,11 @@
 <?php
-	use Cake\Auth\DefaultPasswordHasher;
-	use Cake\ORM\TableRegistry;
 	use Migrations\AbstractMigration;
-	use Phinx\Db\Adapter\MysqlAdapter;
 
 	class Initial extends AbstractMigration {
 		public function change() {
 
 			//<editor-fold desc="Související stránky / novinky">
-			$table = $this->table('related_contents', ['comment' => 'Související články / novinky ... (číst více)']); //TODO unique
+			$table = $this->table('related_contents_test', ['comment' => 'Související články / novinky ... (číst více)']);
 			$table
 				->addColumn('source_table_name', 'string', [
 					'limit'   => 255,
@@ -33,6 +30,7 @@
 				->addColumn('created', 'datetime', [
 					'null' => false,
 				])
+				->addIndex(['source_table_name', 'target_table_name', 'source_table_id', 'target_table_id'], ['unique' => true, 'name' => 'unique_binding'])
 				->create();
 			/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 			 * ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ */
