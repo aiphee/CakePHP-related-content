@@ -83,10 +83,10 @@
 		 * Refreshes cache for all models with attached behavior
 		 */
 		public static function getListForAllAttachedModels() {
-			$indexed_tables     = [];
+			$indexed_tables = [];
 			$tablesWithBehavior = self::getAttachedTables();
 
-			/** @var Table $table */
+			/** @var \Cake\ORM\Table $table */
 			foreach ($tablesWithBehavior as $table) {
 				$indexed_tables[$table->alias()] = $table->find('list', ['only_active' => true])->toArray();
 			}

@@ -27,19 +27,19 @@
 			if (!$this->config('skipSimilarInitialize')) {
 				$attachedTables = InRelatedIndexBehavior::getTablesWithBehaviorNames();
 
-				/** @var Table $attachedTable */
+				/** @var \Cake\ORM\Table $attachedTable */
 				foreach ($attachedTables as $tableName) {
 
 					$modelName = Inflector::camelize($tableName);
 
 					$options = [
-						'className'        => $modelName,
-						'through'          => 'RelatedContents',
-						'foreignKey'       => 'source_table_id',
+						'className' => $modelName,
+						'through' => 'RelatedContents',
+						'foreignKey' => 'source_table_id',
 						'targetForeignKey' => 'target_table_id',
-						'propertyName'     => 'related-' . $tableName,
-						'dependent'        => true,
-						'conditions'       => [
+						'propertyName' => 'related-' . $tableName,
+						'dependent' => true,
+						'conditions' => [
 							'RelatedContents.source_table_name' => $this->_table->table(),
 							'RelatedContents.target_table_name' => $tableName,
 						]
@@ -57,7 +57,7 @@
 			}
 			$attachedTables = InRelatedIndexBehavior::getTablesWithBehaviorNames();
 
-			/** @var Table $attachedTable */
+			/** @var \Cake\ORM\Table $attachedTable */
 			foreach ($attachedTables as $tableName) {
 				$modelName = Inflector::camelize($tableName);
 				$query->contain(['Related' . $modelName => []]);
@@ -74,7 +74,7 @@
 							if (preg_match('/related-.*/', $key)) {
 
 								foreach ($row->{$key} as $id => $similar) {
-									$table_name                   = explode('-', $key);
+									$table_name = explode('-', $key);
 									$row->{$key}[$id]->table_name = end($table_name);
 								}
 
