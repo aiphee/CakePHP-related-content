@@ -27,7 +27,7 @@
 		 *
 		 * @return array|mixed
 		 */
-		static function getTablesWithBehaviorNames() {
+		public static function getTablesWithBehaviorNames() {
 			if (($attachedTables = Cache::read('Related.attachedTables')) === false) { //Nepodařilo se načíst z cache
 				$attachedTables = self::getAttachedTables();
 				$attachedTables = array_map(function ($model) {
@@ -73,7 +73,7 @@
 			return true;
 		}
 
-		static function refreshCache() {
+		public static function refreshCache() {
 			$indexedTables = self::getListForAllAttachedModels();
 			Cache::write('Related.indexedTables', $indexedTables);
 		}
@@ -82,7 +82,7 @@
 		 * Najde všechny modely které mají připnuté tohle chování a přegeneruje jim index
 		 * Refreshes cache for all models with attached behavior
 		 */
-		static function getListForAllAttachedModels() {
+		public static function getListForAllAttachedModels() {
 			$indexed_tables     = [];
 			$tablesWithBehavior = self::getAttachedTables();
 
@@ -103,7 +103,7 @@
 		 *
 		 * @return array
 		 */
-		static function getAttachedTables($indexedByName = false) {
+		public static function getAttachedTables($indexedByName = false) {
 
 			$modelPath = 'Model' . DS . 'Table';
 			$modelPath = APP . $modelPath;

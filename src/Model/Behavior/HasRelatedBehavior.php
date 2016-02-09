@@ -16,9 +16,9 @@
 	 *
 	 *
 	 * Inicializace:
-	 * 		$this->addBehavior('RelatedContent.HasRelated', isset($config['options']) ? $config['options'] : []);
+	 *        $this->addBehavior('RelatedContent.HasRelated', isset($config['options']) ? $config['options'] : []);
 	 * Search options:
-	 * 		getRelated 				- if present, get related in search, otherwise it wont fetch
+	 *        getRelated                - if present, get related in search, otherwise it wont fetch
 	 */
 	class HasRelatedBehavior extends Behavior {
 
@@ -26,7 +26,6 @@
 
 			if (!$this->config('skipSimilarInitialize')) {
 				$attachedTables = InRelatedIndexBehavior::getTablesWithBehaviorNames();
-
 
 				/** @var Table $attachedTable */
 				foreach ($attachedTables as $tableName) {
@@ -63,7 +62,6 @@
 				$modelName = Inflector::camelize($tableName);
 				$query->contain(['Related' . $modelName => []]);
 			}
-
 
 			$query->formatResults(function ($results) {
 				return $results->map(
@@ -104,7 +102,7 @@
 					}
 				}
 			}
-	}
+		}
 
 		public function beforeSave($event, $entity, $options) {
 			if (isset($entity->related)) { //TODO, related are being marked as dirty even when they are not
@@ -116,7 +114,6 @@
 
 			return true;
 		}
-
 
 
 	}
