@@ -95,7 +95,7 @@
 		}
 
 		public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
-			if (count($data) > 5) {
+			if (count($data) > 5) { //TODO Make this less magical
 				foreach ($data as $key => &$item) {
 					if (is_array($item) && preg_match('/related-.*/', $key)) {
 						foreach ($item as &$related) {
@@ -103,35 +103,11 @@
 						}
 					}
 				}
-
-//				unset($data['related']);
-
-				echo ""; //TODO $article->dirty('comments', true); aby se neaktlizovalo id?
 			}
-
-			/*if (isset($data['related']) > 0) {
-				$relatedContentsTable = TableRegistry::get('RelatedContents');
-				foreach ($data['related'] as $id => &$related) {
-					$related['source_table_name'] = $this->_table->table();
-					$related['created']           = Time::now();
-				}
-				$entities = $relatedContentsTable->newEntities($data['related']);
-
-				$relatedContentsTable->connection()->transactional(function () use ($relatedContentsTable, $entities, $data) {
-					$relatedContentsTable->deleteAll([
-						'source_table_name' => $this->_table->table(),
-						'source_table_id'   => reset($data['related'])['source_table_id'],
-					]);
-					foreach ($entities as $entity) {
-						$relatedContentsTable->save($entity, ['atomic' => false]);
-					}
-				});
-
-			}*/
 	}
 
 		public function beforeSave($event, $entity, $options) {
-			if (isset($entity->related)) { //TODO, zbytečně nastavuje všechny na dirty
+			if (isset($entity->related)) { //TODO, related are being marked as dirty even when they are not
 				foreach (InRelatedIndexBehavior::getTablesWithBehaviorNames() as $tablesWithBehaviorName) {
 					$entity->dirty('related-' . $tablesWithBehaviorName, true);
 				}

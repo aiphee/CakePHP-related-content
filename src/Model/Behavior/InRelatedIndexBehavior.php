@@ -23,6 +23,7 @@
 
 		/**
 		 * Vrátí pole s názvy tabulek které mají připnuté chování, po přidání chování je třeba mazat cache
+		 * Return array with table names with attached behavior, cache needs to be cleared after adding new
 		 *
 		 * @return array|mixed
 		 */
@@ -51,6 +52,7 @@
 
 		/***
 		 * Při změně tabulky obnovit index pro tento model
+		 * When the table gets changed, refresh it`s index in array
 		 *
 		 * @param $event
 		 * @param $entity
@@ -78,6 +80,7 @@
 
 		/***
 		 * Najde všechny modely které mají připnuté tohle chování a přegeneruje jim index
+		 * Refreshes cache for all models with attached behavior
 		 */
 		static function getListForAllAttachedModels() {
 			$indexed_tables     = [];
@@ -93,9 +96,10 @@
 
 		/**
 		 * Vrátí tabulky s chováním, které se mají indexovat
+		 * Return tables with behavior which should be indexed
 		 *
 		 *
-		 * @param bool       $indexedByName Zda li má vrátit jména místo tabulek
+		 * @param bool $indexedByName Pass true if names should be returned instead of Tables
 		 *
 		 * @return array
 		 */

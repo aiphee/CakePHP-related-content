@@ -34,6 +34,4 @@
 	</div>
 
 </fieldset>
-<script>
-</script>
 <?= $this->Html->script('RelatedContent.managing-related-compiled') ?>
