@@ -1,7 +1,7 @@
 <?php
-	use Cake\Utility\Inflector;
+use Cake\Utility\Inflector;
 
-	$thisTable = Inflector::underscore($this->name);
+$thisTable = Inflector::underscore($this->name);
 ?>
 
 <fieldset class="well last">
