@@ -24,7 +24,7 @@ class RelatedContentController extends AppController {
 		$query = $this->request->query['term'];
 
 		$this->autoRender = false;
-		$indexed_tables = $this->__getIndexedTables();
+		$indexed_tables = $this->_getIndexedTables();
 
 		$array = [];
 		foreach ($indexed_tables as $model => $indexed_table) {
@@ -51,7 +51,7 @@ class RelatedContentController extends AppController {
 	/**
 	 * @return mixed
 	 */
-	private function __getIndexedTables() {
+	protected function _getIndexedTables() {
 		if (($indexed_tables = Cache::read('Related.indexedTables')) === false) {
 			$InRelatedIndexBehavior = new InRelatedIndexBehavior(TableRegistry::get(''));
 			$InRelatedIndexBehavior->refreshCache();
@@ -63,7 +63,7 @@ class RelatedContentController extends AppController {
 
 	public function getActionName($controller, $id) {
 		$this->autoRender = false;
-		$indexed_tables = $this->__getIndexedTables();
+		$indexed_tables = $this->_getIndexedTables();
 		if (isset($indexed_tables[$controller][$id])) {
 			echo $indexed_tables[$controller][$id] . ' (' . __(Inflector::humanize(Inflector::underscore($controller))) . ' / ' . $id . ')';
 		}

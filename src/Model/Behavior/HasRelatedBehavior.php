@@ -21,14 +21,14 @@ use Cake\Utility\Inflector;
  */
 class HasRelatedBehavior extends Behavior {
 
-	/** @var \RelatedContent\Model\Behavior\InRelatedIndexBehavior $__InRelatedIndexBehavior */
-	private $__InRelatedIndexBehavior;
+	/** @var \RelatedContent\Model\Behavior\InRelatedIndexBehavior $_InRelatedIndexBehavior */
+	protected $_InRelatedIndexBehavior;
 
 	public function initialize(array $config) {
-		$this->__InRelatedIndexBehavior = $this->_getInRelated();
+		$this->_InRelatedIndexBehavior = $this->_getInRelated();
 
 		if (!$this->config('skipSimilarInitialize')) {
-			$attachedTables = $this->__InRelatedIndexBehavior->getTablesWithBehaviorNames();
+			$attachedTables = $this->_InRelatedIndexBehavior->getTablesWithBehaviorNames();
 
 			/** @var \Cake\ORM\Table $attachedTable */
 			foreach ($attachedTables as $tableName) {
@@ -64,7 +64,7 @@ class HasRelatedBehavior extends Behavior {
 		if (!array_key_exists('getRelated', $options) || !$options['getRelated']) { //Jen pokud se mají related stahovat
 			return true;
 		}
-		$attachedTables = $this->__InRelatedIndexBehavior->getTablesWithBehaviorNames();
+		$attachedTables = $this->_InRelatedIndexBehavior->getTablesWithBehaviorNames();
 
 		/** @var \Cake\ORM\Table $attachedTable */
 		foreach ($attachedTables as $tableName) {
@@ -114,7 +114,7 @@ class HasRelatedBehavior extends Behavior {
 
 	public function beforeSave($event, $entity, $options) {
 		if (isset($entity->related)) { //TODO, related are being marked as dirty even when they are not
-			foreach ($this->__InRelatedIndexBehavior->getTablesWithBehaviorNames() as $tablesWithBehaviorName) {
+			foreach ($this->_InRelatedIndexBehavior->getTablesWithBehaviorNames() as $tablesWithBehaviorName) {
 				$entity->dirty('related-' . $tablesWithBehaviorName, true);
 			}
 

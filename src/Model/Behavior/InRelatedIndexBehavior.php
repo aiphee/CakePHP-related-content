@@ -41,11 +41,11 @@ class InRelatedIndexBehavior extends Behavior {
 
 
 	public function afterSave(Event $event, Entity $entity, ArrayObject $options) {
-		$this->__tableChanged($event, $entity, $options);
+		$this->_tableChanged($event, $entity, $options);
 	}
 
 	public function afterDelete(Event $event, Entity $entity, ArrayObject $options) {
-		$this->__tableChanged($event, $entity, $options);
+		$this->_tableChanged($event, $entity, $options);
 	}
 
 	/***
@@ -58,7 +58,7 @@ class InRelatedIndexBehavior extends Behavior {
 	 *
 	 * @return bool
 	 */
-	private function __tableChanged($event, $entity, $options) {
+	protected function _tableChanged($event, $entity, $options) {
 		$modelName = $this->_table->alias();
 
 		if (($indexedTables = Cache::read('Related.indexedTables')) === false) { //Nepodařilo se načíst z cache
@@ -74,7 +74,7 @@ class InRelatedIndexBehavior extends Behavior {
 	}
 
 	public function refreshCache() {
-		$indexedTables = $this->__getListForAllAttachedModels();
+		$indexedTables = $this->_getListForAllAttachedModels();
 		Cache::write('Related.indexedTables', $indexedTables);
 	}
 
@@ -82,7 +82,7 @@ class InRelatedIndexBehavior extends Behavior {
 	 * Najde všechny modely které mají připnuté tohle chování a přegeneruje jim index
 	 * Refreshes cache for all models with attached behavior
 	 */
-	private function __getListForAllAttachedModels() {
+	protected function _getListForAllAttachedModels() {
 		$indexed_tables = [];
 		$tablesWithBehavior = $this->getAttachedTables();
 
