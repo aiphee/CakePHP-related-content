@@ -20,7 +20,8 @@ use Cake\Utility\Inflector;
  *        getRelated                - if present, get related in search, otherwise it wont fetch
  */
 class HasRelatedBehavior extends Behavior {
-	/** @var InRelatedIndexBehavior $__InRelatedIndexBehavior */
+
+	/** @var \RelatedContent\Model\Behavior\InRelatedIndexBehavior $__InRelatedIndexBehavior */
 	private $__InRelatedIndexBehavior;
 
 	public function initialize(array $config) {
@@ -35,13 +36,13 @@ class HasRelatedBehavior extends Behavior {
 				$modelName = Inflector::camelize($tableName);
 
 				$options = [
-					'className'        => $modelName,
-					'through'          => 'RelatedContents',
-					'foreignKey'       => 'source_table_id',
+					'className' => $modelName,
+					'through' => 'RelatedContents',
+					'foreignKey' => 'source_table_id',
 					'targetForeignKey' => 'target_table_id',
-					'propertyName'     => 'related-' . $tableName,
-					'dependent'        => true,
-					'conditions'       => [
+					'propertyName' => 'related-' . $tableName,
+					'dependent' => true,
+					'conditions' => [
 						'RelatedContents.source_table_name' => $this->_table->table(),
 						'RelatedContents.target_table_name' => $tableName,
 					]
@@ -53,7 +54,7 @@ class HasRelatedBehavior extends Behavior {
 	}
 
 	/**
-	 * @return InRelatedIndexBehavior
+	 * @return \RelatedContent\Model\Behavior\InRelatedIndexBehavior
 	 */
 	protected function _getInRelated() {
 		return new InRelatedIndexBehavior($this->_table);
@@ -81,7 +82,7 @@ class HasRelatedBehavior extends Behavior {
 						if (preg_match('/related-.*/', $key)) {
 
 							foreach ($row->{$key} as $id => $similar) {
-								$table_name                   = explode('-', $key);
+								$table_name = explode('-', $key);
 								$row->{$key}[$id]->table_name = end($table_name);
 							}
 

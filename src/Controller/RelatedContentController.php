@@ -7,11 +7,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use RelatedContent\Model\Behavior\InRelatedIndexBehavior;
 
-/**
- * Polls Controller
- *
- * @property \App\Model\Table\PollsTable $Polls
- */
 class RelatedContentController extends AppController {
 
 	/**
@@ -29,7 +24,7 @@ class RelatedContentController extends AppController {
 		$query = $this->request->query['term'];
 
 		$this->autoRender = false;
-		$indexed_tables   = $this->__getIndexedTables();
+		$indexed_tables = $this->__getIndexedTables();
 
 		$array = [];
 		foreach ($indexed_tables as $model => $indexed_table) {
@@ -39,7 +34,7 @@ class RelatedContentController extends AppController {
 					$regexp = '/' . $regexp . '/i';
 					if (preg_match($regexp, $value)) {
 						$array[] = [
-							'key'   => $key,
+							'key' => $key,
 							'value' => $value,
 							'model' => $model,
 							'table' => Inflector::underscore($model),
@@ -68,7 +63,7 @@ class RelatedContentController extends AppController {
 
 	public function getActionName($controller, $id) {
 		$this->autoRender = false;
-		$indexed_tables   = $this->__getIndexedTables();
+		$indexed_tables = $this->__getIndexedTables();
 		if (isset($indexed_tables[$controller][$id])) {
 			echo $indexed_tables[$controller][$id] . ' (' . __(Inflector::humanize(Inflector::underscore($controller))) . ' / ' . $id . ')';
 		}

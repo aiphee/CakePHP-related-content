@@ -26,7 +26,7 @@ class RelatedContent extends Entity {
 	 * @var array
 	 */
 	protected $_accessible = [
-		'*'  => true,
+		'*' => true,
 		'id' => false,
 	];
 }

@@ -83,10 +83,10 @@ class InRelatedIndexBehavior extends Behavior {
 	 * Refreshes cache for all models with attached behavior
 	 */
 	private function __getListForAllAttachedModels() {
-		$indexed_tables     = [];
+		$indexed_tables = [];
 		$tablesWithBehavior = $this->getAttachedTables();
 
-		/** @var Table $table */
+		/** @var \Cake\ORM\Table $table */
 		foreach ($tablesWithBehavior as $table) {
 			$indexed_tables[$table->alias()] = $table->find('list', ['only_active' => true])->toArray();
 		}
