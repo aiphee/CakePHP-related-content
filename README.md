@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/aiphee/cakephp-related-content.svg?branch=master)](https://travis-ci.org/aiphee/cakephp-related-content)
+
 # Related content plugin for CakePHP 3
 
 ![alt text](/related1.png "Logo Title Text 1")
