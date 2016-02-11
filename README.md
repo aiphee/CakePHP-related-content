@@ -2,8 +2,8 @@
 
 # Related content plugin for CakePHP 3
 
-![alt text](/related1.png "Logo Title Text 1")
-![alt text](/related2.png "Logo Title Text 1")
+![Autocomplete](/related1.png "Autocomplete")
+![Related view](/related2.png "Related view")
 
 
 This is a fast made plugin made for simple maintaining of relationships.
@@ -66,5 +66,15 @@ $entity = $this->ContentPages->get($id, [
 				'getRelated' => true
 			]);
 ```
+
+- You can also use element in view, which model does not have HasRelated behavior, to populate some fields
+(target_table_name and target_table_id are directly in table)
+```PHP
+<?= $this->element('RelatedContent.foreignTableSearch') ?>
+<?= $this->Form->input('foreign_table_id', ['type' => 'hidden']) ?>
+<?= $this->Form->input('foreign_table_name', ['type' => 'hidden']) ?>
+```
+It looks like this then:
+![Managing related without associations](/related3.png "Managing related without associations")
 
 
