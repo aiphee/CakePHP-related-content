@@ -20,10 +20,10 @@ Please, be noted that this is not a complex plugin, there may be serious bugs, y
 ```SQL
 CREATE TABLE `related_contents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `source_table_name` varchar(255) DEFAULT NULL COMMENT 'Jméno tabulky ze které se odkazuje',
-  `target_table_name` varchar(255) DEFAULT NULL COMMENT 'Jméno tabulky na kterou se odkazuje',
-  `source_table_id` int(11) NOT NULL COMMENT 'ID tabulky ze které se odkazuje',
-  `target_table_id` int(11) NOT NULL COMMENT 'ID tabulky na kterou se odkazuje',
+  `source_table_name` varchar(255) DEFAULT NULL COMMENT 'Table which you link from',
+  `target_table_name` varchar(255) DEFAULT NULL COMMENT 'Table which you link to',
+  `source_table_id` int(11) NOT NULL COMMENT 'ID of table you link from',
+  `target_table_id` int(11) NOT NULL COMMENT 'ID of table you link to',
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
 )
@@ -75,6 +75,7 @@ $entity = $this->ContentPages->get($id, [
 <?= $this->Form->input('foreign_table_name', ['type' => 'hidden']) ?>
 ```
 It looks like this then:
+
 ![Managing related without associations](/related3.png "Managing related without associations")
 
 
